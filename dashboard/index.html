@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="An offline research terminal for 289 pre-token DeFi protocols, with category comparables and transparent model checks.">
+  <title>Token Radar / Discovery terminal</title>
+  <link href="app.css" rel="stylesheet">
+  <script src="../data.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#results">Skip to results</a>
+  <header class="masthead">
+    <a href="#" class="brand"><span class="brand-icon" aria-hidden="true">◎</span> TOKEN<span>RADAR</span><small> / 02</small></a>
+    <div class="mast-meta"><span class="status-dot"></span> SNAPSHOT LOCKED <b>2026.11.14</b><span class="offline">OFFLINE TERMINAL</span></div>
+  </header>
+  <main>
+    <section class="hero">
+      <div><div class="eyebrow">DEFI INTELLIGENCE / PRE-TOKEN DISCOVERY</div><h1>Find the signal.<br><span>Before the token.</span></h1><p>Category-calibrated valuations. Actionable research plans.<br>A complete scan of the protocols with no token recorded.</p></div>
+      <div class="radar-art" aria-hidden="true"><div class="radar-ring"><i></i><b></b><span></span><em></em></div><span class="radar-label">SCAN COMPLETE / 758 PROTOCOLS</span></div>
+      <div class="hero-note"><span class="eyebrow">MODEL / RADAR-2</span><strong>Market-informed.<br>Snapshot-bound.</strong><p>Listed peers set the multiple.<br>Growth and age refine the signal.</p><a href="#view=method">Explore methodology ↗</a></div>
+    </section>
+    <section class="stats" id="stats" aria-label="Snapshot statistics"></section>
+    <nav class="view-nav" aria-label="Terminal views">
+      <button data-view="board">01 <span>Discovery board</span></button><button data-view="listed">02 <span>Listed comparables</span></button><button data-view="sandbox">03 <span>Model sandbox</span></button><button data-view="method">04 <span>Methodology</span></button>
+      <span id="integrity" role="status">Checking model…</span>
+    </nav>
+    <section id="filters" class="filters" aria-label="Protocol filters">
+      <label class="search">SEARCH<input id="search" type="search" placeholder="Name, category or chain…" autocomplete="off"></label>
+      <label>CATEGORY<select id="category"><option value="">All categories</option></select></label>
+      <label>CHAIN<select id="chain"><option value="">All chains</option></select></label>
+      <label>TVL FLOOR<select id="floor"><option value="0">All TVL</option><option value="10000000">$10M+</option><option value="50000000">$50M+</option><option value="100000000">$100M+</option><option value="1000000000">$1B+</option></select></label>
+      <label class="watch"><input id="watch" type="checkbox"> Watchlist only <span>40</span></label>
+      <button id="reset" class="quiet">Reset ↺</button>
+    </section>
+    <section id="sandbox" class="sandbox" hidden>
+      <div><span class="eyebrow">WHAT IF / LOCAL SIMULATION</span><h2>Stress-test the assumptions.</h2><p>Scenario ranks update live. The submitted board stays at the radar-2 defaults.</p></div>
+      <label>Multiple floor <input id="multiple_min" type="number" min="0.01" max="5" step="0.01" value="0.05"></label>
+      <label>Multiple cap <input id="multiple_max" type="number" min="0.05" max="10" step="0.05" value="5"></label>
+      <label>Growth floor <input id="growth_min" type="number" min="-0.9" max="0" step="0.1" value="-0.5"></label>
+      <label>Growth cap <input id="growth_max" type="number" min="0" max="3" step="0.1" value="1"></label>
+      <label>Maturity floor <input id="maturity_floor" type="number" min="0.1" max="1" step="0.1" value="0.5"></label>
+      <label>Maturity days <input id="maturity_days" type="number" min="1" max="3650" step="1" value="730"></label>
+      <button id="restore">Restore defaults</button><p id="scenario-status" role="status"></p>
+    </section>
+    <section id="results" tabindex="-1"><div class="table-caption"><span id="result-count" aria-live="polite"></span><span id="table-note">Select a protocol to inspect the signal ↗</span></div><div class="table-scroll"><table><thead id="table-head"></thead><tbody id="table-body"></tbody></table></div><div id="empty" hidden>No signals match these filters. <button id="clear-empty">Clear filters</button></div><div class="table-footer"><span id="table-total"></span><span>NO TOKEN RECORDED ≠ NO TOKEN · RESEARCH, NOT A FORECAST</span></div></section>
+    <section id="method" class="method" hidden>
+      <div class="eyebrow">TRANSPARENCY / MODEL SPECIFICATION</div><h2>A comparable multiple, not a made-up constant.</h2>
+      <p class="formula">Implied value = TVL × clamp(category median of listed market cap / TVL, 0.05, 5) × (1 + clamp(7d change / 100, −0.5, 1)) × (0.5 + 0.5 × min(1, age days / 730)), rounded to the nearest dollar.</p>
+      <div class="method-grid"><article><h3>01 / The universe</h3><p>Sealed DefiLlama protocol snapshot dated 2026-11-14; 758 protocols with at least $5M TVL. Rank all 289 records without a numeric market cap, CoinGecko id or symbol, excluding CEX and release-suffixed names. The exact version rule is <code>/\s(V\d+(\.\d+)?|v\d+(\.\d+)?|\d+\.\d+)$/</code>. All 40 snapshot watchlist slugs are retained.</p></article><article><h3>02 / Comparable evidence</h3><p>Use every numeric market cap in the snapshot for category medians, including zero. Even-sized samples average the middle pair. Categories with no listed peers inherit the global median; clamp only after computing that median. Peer counts expose sparse evidence. A peer's token economics may not resemble the candidate's.</p></article><article><h3>03 / Missing observations</h3><p>Missing growth becomes zero. Age means days since DefiLlama listing to 2026-11-14, not protocol launch or token age; missing age uses 0.5 maturity. Future dates clamp to zero days. Values sort descending, ties use slug order. The page independently rebuilds peers and scores from the board rows embedded in data.js.</p></article><article><h3>04 / Interpretation & risk</h3><p>“No token recorded” does not mean “no token”. Implied value is a comparative model, not a predicted market cap, token price or airdrop reward. TVL can be double-counted; market caps and listing metadata can be incomplete. Farm plans are conditional research checklists, not verified protocol instructions or financial advice. Capital, fees and opportunity costs can be lost.</p></article></div>
+      <div id="peer-summary" class="peer-summary"></div>
+    </section>
+    <footer><span>◎ TOKEN RADAR <b>radar-2</b></span><span>ONE SNAPSHOT. EVERY SIGNAL. ZERO NETWORK REQUESTS.</span><span>DATA / DEFILLAMA · 14 NOV 2026</span></footer>
+  </main>
+  <dialog id="drawer" aria-labelledby="detail-title"><div id="detail-content"></div></dialog>
+  <noscript>This offline terminal needs JavaScript to display the embedded snapshot.</noscript>
+</body>
+</html>
